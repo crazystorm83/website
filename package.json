@@ -1,0 +1,36 @@
+{
+  "name": "tsx",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.20.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server/action.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/browser/index.ts --bundle --outfile=public/bundle/bundle.js --watch",
+    "watch": "esbuild src/*.jsx --bundle --outfile=bundle.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "esbuild": "^0.25.11",
+    "eslint": "^9.39.1",
+    "express": "^5.1.0",
+    "prettier": "^3.6.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tsc": "^2.0.4",
+    "tsx": "^4.20.6",
+    "turbo": "^2.6.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "vite": "^7.2.4",
+    "y-websocket": "^3.0.0",
+    "yjs": "^13.6.27"
+  }
+}

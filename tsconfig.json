@@ -1,0 +1,72 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "nodenext",
+    "target": "esnext",
+    "baseUrl": "./src",
+    "paths": {
+      "@types": ["./@types"],
+      "@types/*": ["./@types/*"]
+    },
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "incremental": true /* 증분 컴파일 활성화 */,
+    "sourceMap": true /* 소스 맵 생성 */,
+    "declaration": true /* 선언 파일 생성 */,
+    "declarationMap": true /* 선언 파일 맵 생성 */,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true /* 인덱스 접근 시 옵션 체크 */,
+    "exactOptionalPropertyTypes": true /* 선택적 속성 타입 체크 */,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true /* 엄격한 타입 체크 */,
+    "jsx": "react-jsx" /* JSX 문법 사용 */,
+    // "verbatimModuleSyntax": true,
+    "isolatedModules": true /* 각 모듈이 독립적으로 컴파일되도록 설정 */,
+    "noUncheckedSideEffectImports": true /* 부작용 없는 임포트 체크 */,
+    "moduleDetection": "force" /* 모듈 감지 강제 */,
+
+    /* 실험적인 기능 옵션
+     * ------------------------------------------------------------------------------------- */
+    "experimentalDecorators": true /* 실험적인 데코레이터 기능 활성화 */,
+    "emitDecoratorMetadata": true /* 데코레이터 메타데이터 출력 */,
+
+    /* 고급옵션
+     * ------------------------------------------------------------------------------------- */
+    "skipLibCheck": true /* 라이브러리 타입 체크 건너뛰기 */
+  },
+
+  "files": ["src/90.browser/index.ts"], // 컴파일할 파일들의 개별 목록을 지정하는 속성
+
+  "include": ["src/90.browser/**/*", "src/@types/**/*", "src/01.browser_foundation/@types/data", "src/01.browser_foundation/@types/exception"], // 컴파일할 파일들을 지정하는 속성
+
+  "exclude": ["node_modules"] // 컴파일 대상에서 제외할 파일들을 지정하는 속성
+
+  // "extends": "./base.tsconfig.json" // 다른 tsconfig.json 파일을 상속받아서 설정을 재사용할 수 있게 해주는 속성
+
+  /** 타입 습득(type acquisition) 과 관련된 옵션들을 지정하는 속성 */
+  // "typeAcquisition": {
+  //   "enable": true,
+  //   "include": ["react", "react-dom"],
+  //   "exclude": ["node_modules"]
+  // }
+}

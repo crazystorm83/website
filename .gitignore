@@ -1,0 +1,10 @@
+# IDE
+.turbo/
+
+docs/
+
+# dependencies
+node_modules/
+
+
+pnpm-lock.yaml

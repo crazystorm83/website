@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <template id="template-root">
+        <div></div>
+    </template>
+    <template id="table">
+        <table>
+        </table>
+    </template>
+    <template id="tableColgroup">
+        <colgroup>
+        </colgroup>
+    </template>
+    <template id="tableCol">
+        <col>
+    </template>
+    <template id="tableHead">
+        <thead></thead>
+    </template>
+    <template id="tableBody">
+        <tbody></tbody>
+    </template>
+    <template id="tableRow">
+        <tr></tr>
+    </template>
+    <template id="tableCell">
+        <td></td>
+    </template>
+    </template>
+    <template id="tableCell">
+        <td></td>
+    </template>
+
+
+    <script>
+        class Node {
+            children = [];
+            size = 0;
+
+            constructor() { }
+
+            templateDOM(result) {
+                result.template += this.templateDOM(result);
+            }
+
+            append(node) {
+                this.children.splice(this.size, 0, node);
+                this.size++;
+            }
+
+            templateElementDOM() {
+                const templateElement = document.querySelector(`#${this.type}`);
+                return templateElement.content;
+            }
+        }
+        class Root extends Node {
+            type = NodeIdentifiers.RootElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('div');
+            }
+
+            templateDOM(result) {
+                return `<div>${this.children.map(child => child.templateDOM(result)).join('')}</div>`;
+            }
+        }
+        class Table extends Node {
+            type = NodeIdentifiers.TableElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('table');
+            }
+
+            templateDOM(result) {
+                return `<table>${this.children.map(child => child.templateDOM(result)).join('')}</table>`;
+            }
+        }
+
+        class TableColgroup extends Node {
+            type = NodeIdentifiers.TableColgroupElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('colgroup');
+            }
+
+            templateDOM(result) {
+                return `<colgroup>${this.children.map(child => child.templateDOM(result)).join('')}</colgroup>`;
+            }
+        }
+
+        class TableCol extends Node {
+            type = NodeIdentifiers.TableColElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('col');
+            }
+
+            templateDOM(result) {
+                return `<col>${this.children.map(child => child.templateDOM(result)).join('')}</col>`;
+            }
+        }
+
+        class TableHead extends Node {
+            type = NodeIdentifiers.TheadElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('thead');
+            }
+
+            templateDOM(result) {
+                return `<thead>${this.children.map(child => child.templateDOM(result)).join('')}</thead>`;
+            }
+        }
+
+        class TableBody extends Node {
+            type = NodeIdentifiers.TbodyElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('tbody');
+            }
+
+            templateDOM(result) {
+                return `<tbody>${this.children.map(child => child.templateDOM(result)).join('')}</tbody>`;
+            }
+        }
+
+        class TableRow extends Node {
+            type = NodeIdentifiers.TableRowElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('tr');
+            }
+
+            templateDOM(result) {
+                return `<tr>${this.children.map(child => child.templateDOM(result)).join('')}</tr>`;
+            }
+        }
+
+        class TableCell extends Node {
+            type = NodeIdentifiers.TableCellElementNodeIdentifier.type;
+
+            constructor() {
+                super();
+            }
+
+            createDOM() {
+                return document.createElement('td');
+            }
+
+            templateDOM(result) {
+                return `<td>${this.children.map(child => child.templateDOM(result)).join('')}</td>`;
+            }
+        }
+
+        const resolve = {
+            root: (payload) => {
+                return `<div>${payload.children.map(child => resolve[child.type](child)).join('')}</div>`;
+            },
+            table: (payload) => {
+                return `<table>${payload.children.map(child => resolve[child.type](child)).join('')}</table>`;
+            },
+            tableColgroup: (payload) => {
+                return `<colgroup>${payload.children.map(child => resolve[child.type](child)).join('')}</colgroup>`;
+            },
+            tableCol: (payload) => {
+                return `<col>${payload.children.map(child => resolve[child.type](child)).join('')}</col>`;
+            },
+            tableHead: (payload) => {
+                return `<thead>${payload.children.map(child => resolve[child.type](child)).join('')}</thead>`;
+            },
+            tableBody: (payload) => {
+                return `<tbody>${payload.children.map(child => resolve[child.type](child)).join('')}</tbody>`;
+            },
+            tableRow: (payload) => {
+                return `<tr>${payload.children.map(child => resolve[child.type](child)).join('')}</tr>`;
+            },
+            tableCell: (payload) => {
+                return `<td>${payload.children.map(child => resolve[child.type](child)).join('')}</td>`;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    Hello Page!
+    <div id="root"></div>
+    <div id="make-node-ast-report"></div>
+    <div id="dom-root-report"></div>
+    <div id="template-root-report"></div>
+    <div id="tmpl-root-report"></div>
+    <div id="resolve-template-root-report"></div>
+    <div id="template-element-root-report"></div>
+
+    <div id="dom-root"></div>
+    <div id="template-root"></div>
+    <div id="tmpl-root"></div>
+    <div id="resolve-template-root"></div>
+    <div id="template-element-root"></div>
+
+    <script src="/bundle/bundle.js"></script>
+    <script>
+        function fetchPost(payload) {
+            this._controller = new AbortController();
+            const signal = this._controller.signal;
+
+            const { url, data, ...restArgs } = payload;
+            const body = data ? JSON.stringify(data) : null;
+
+            try {
+                const promise = new Promise((resolve, reject) => {
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: body,
+                        signal
+                    })
+                        .then(response => response.json())
+                        .then(data => resolve(data))
+                        .catch(err => {
+                            console.log('error')
+                            console.error(err)
+                        });
+                });
+                promise.then(data => console.log(data))
+            } catch (err) { }
+        }
+        function fetchPut(payload) {
+            this._controller = new AbortController();
+            const signal = this._controller.signal;
+
+            const { url, data, ...restArgs } = payload;
+            const body = data ? JSON.stringify(data) : null;
+
+            try {
+                const promise = new Promise((resolve, reject) => {
+                    fetch(url, {
+                        method: "PUT",
+                        body,
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        signal
+                    })
+                        .then(response => response.json())
+                        .then(data => resolve(data))
+                        .catch(err => {
+                            console.log('error')
+                            console.error(err)
+                        });
+                });
+                promise.then(data => console.log(data))
+            } catch (err) { }
+        }
+        function fetchGet(payload) {
+            this._controller = new AbortController();
+            const signal = this._controller.signal;
+
+            const { url, ...restArgs } = payload;
+
+            try {
+                const promise = new Promise((resolve, reject) => {
+                    fetch(url, { method: "GET", signal })
+                        .then(response => response.json())
+                        .then(data => resolve(data))
+                        .catch(err => {
+                            console.log('error')
+                            console.error(err)
+                        });
+                });
+                promise.then(data => console.log(data))
+            } catch (err) { }
+        }
+        function fetchDelete(payload) {
+            this._controller = new AbortController();
+            const signal = this._controller.signal;
+
+            const { url, ...restArgs } = payload;
+
+            try {
+                const promise = new Promise((resolve, reject) => {
+                    fetch(url, { method: "DELETE", signal })
+                        .then(response => response.json())
+                        .then(data => resolve(data))
+                        .catch(err => {
+                            console.log('error')
+                            console.error(err)
+                        });
+                });
+                promise.then(data => console.log(data))
+            } catch (err) { }
+        }
+
+        fetchPost({
+            url: 'http://localhost:3000/api/page',
+            data: {
+                menuId: 'board',
+                menuType: 'input'
+            }
+        });
+        fetchPut({
+            url: 'http://localhost:3000/api/user/123',
+            data: {
+                name: '홍길동',
+                email: 'hong@example.com'
+            }
+        });
+        fetchGet({ url: 'http://localhost:3000/api/user' });
+        fetchDelete({ url: 'http://localhost:3000/api/user/123' });
+
+        const nodes = {
+            root: Root,
+            table: Table,
+            tableColgroup: TableColgroup,
+            tableCol: TableCol,
+            tableHead: TableHead,
+            tableBody: TableBody,
+            tableRow: TableRow,
+            tableCell: TableCell
+        };
+
+        const theadAST = { type: NodeIdentifiers.TheadElementNodeIdentifier.type, children: [] };
+        const tbodyAST = { type: NodeIdentifiers.TbodyElementNodeIdentifier.type, children: [] };
+        const rootAST = {
+            type: NodeIdentifiers.RootElementNodeIdentifier.type,
+            children: [
+                {
+                    type: NodeIdentifiers.TableElementNodeIdentifier.type,
+                    children: [
+                        {
+                            type: NodeIdentifiers.TableColgroupElementNodeIdentifier.type,
+                            children: [
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                                { type: NodeIdentifiers.TableColElementNodeIdentifier.type, state: { width: '100px' }, children: [] },
+                            ]
+                        },
+                        theadAST,
+                        tbodyAST,
+                    ]
+                },
+            ]
+        }
+
+        for (let i = 0; i < 1; i++) {
+            const trAST = { type: NodeIdentifiers.TableRowElementNodeIdentifier.type, children: [] };
+            for (let j = 0; j < 20; j++) {
+                const tdAST = { type: NodeIdentifiers.TableCellElementNodeIdentifier.type, children: [] };
+                trAST.children.push(tdAST);
+            }
+            theadAST.children.push(trAST);
+        }
+        for (let i = 0; i < 1000; i++) {
+            const trAST = { type: NodeIdentifiers.TableRowElementNodeIdentifier.type, children: [] };
+            for (let j = 0; j < 20; j++) {
+                const tdAST = { type: NodeIdentifiers.TableCellElementNodeIdentifier.type, children: [] };
+                trAST.children.push(tdAST);
+            }
+            tbodyAST.children.push(trAST);
+        }
+
+        const makeNodeASTStarttime = performance.now();
+        const nodeInsts = traverseNodeAST(rootAST);
+        const makeNodeASTEndtime = performance.now();
+        const makeNodeASTTime = [makeNodeASTEndtime - makeNodeASTStarttime];
+
+        const domRoot = document.getElementById('dom-root');
+        const domRootReport = [];
+
+        // for (let i = 0; i < 20; i++) {
+        //     const domStarttime = performance.now();
+        //     const rootDOM = traverseDOMAST(nodeInsts);
+        //     domRoot.firstChild && domRoot.removeChild(domRoot.firstChild);
+        //     domRoot.appendChild(rootDOM);
+        //     const domEndtime = performance.now();
+        //     const domTime = domEndtime - domStarttime;
+        //     console.log(`Time taken: ${domTime} milliseconds`);
+
+        //     domRootReport.push(domTime);
+        // }
+
+        // const templateRoot = document.getElementById('template-root');
+        // const templateRootReport = [];
+
+        // for (let i = 0; i < 20; i++) {
+        //     const templateStarttime = performance.now();
+        //     const template = templateDOMAST(nodeInsts);
+        //     templateRoot.firstChild && templateRoot.removeChild(templateRoot.firstChild);
+        //     templateRoot.insertAdjacentHTML('beforeend', template);
+        //     const templateEndtime = performance.now();
+        //     const templateTime = templateEndtime - templateStarttime;
+        //     console.log(`Time taken: ${templateTime} milliseconds`);
+        //     templateRootReport.push(templateTime);
+        // }
+
+        // const jqueryTemplateRoot = document.getElementById('tmpl-root');
+        // const jqueryTemplateRootReport = [];
+
+        // for (let i = 0; i < 20; i++) {
+        //     const jqueryTemplateStarttime = performance.now();
+        //     const jqueryTemplate = jqueryTemplateDOMAST(nodeInsts);
+        //     jqueryTemplateRoot.firstChild && jqueryTemplateRoot.removeChild(jqueryTemplateRoot.firstChild);
+        //     jqueryTemplateRoot.appendChild($(jqueryTemplate)[0]);
+        //     const jqueryTemplateEndtime = performance.now();
+        //     const jqueryTemplateTime = jqueryTemplateEndtime - jqueryTemplateStarttime;
+        //     console.log(`Time taken: ${jqueryTemplateTime} milliseconds`);
+        //     jqueryTemplateRootReport.push(jqueryTemplateTime);
+        // }
+
+        // const resolveTemplateRoot = document.getElementById('resolve-template-root');
+        // const resolveTemplateRootReport = [];
+
+        // for (let i = 0; i < 20; i++) {
+        //     const resolveTemplateStarttime = performance.now();
+        //     const resolveTemplate = resolveTemplateDOMAST(rootAST);
+        //     resolveTemplateRoot.firstChild && resolveTemplateRoot.removeChild(resolveTemplateRoot.firstChild);
+        //     resolveTemplateRoot.insertAdjacentHTML('beforeend', resolveTemplate);
+        //     const resolveTemplateEndtime = performance.now();
+        //     const resolveTemplateTime = resolveTemplateEndtime - resolveTemplateStarttime;
+        //     console.log(`Time taken: ${resolveTemplateTime} milliseconds`);
+        //     resolveTemplateRootReport.push(resolveTemplateTime);
+        // }
+
+        // const templateElementRoot = document.getElementById('template-element-root');
+        // const templateElementRootReport = [];
+
+        // for (let i = 0; i < 20; i++) {
+        //     const templateElementStarttime = performance.now();
+        //     const templateElement = templateElementDOMAST(nodeInsts);
+        //     templateElementRoot.firstChild && templateElementRoot.removeChild(templateElementRoot.firstChild);
+        //     templateElementRoot.appendChild(templateElement);
+        //     const templateElementEndtime = performance.now();
+        //     const templateElementTime = templateElementEndtime - templateElementStarttime;
+        //     console.log(`Time taken: ${templateElementTime} milliseconds`);
+        //     templateElementRootReport.push(templateElementTime);
+        // }
+
+        // printReport('make node AST', makeNodeASTTime, document.getElementById('make-node-ast-report'));
+        // printReport('document.createElement (node insts)', domRootReport, document.getElementById('dom-root-report'));
+        // printReport('string (template) (node insts)', templateRootReport, document.getElementById('template-root-report'));
+        // printReport('jquery template (node insts)', jqueryTemplateRootReport, document.getElementById('tmpl-root-report'));
+        // printReport('string template (resolve) (ast nodes)', resolveTemplateRootReport, document.getElementById('resolve-template-root-report'));
+        // printReport('template element (node insts)', templateElementRootReport, document.getElementById('template-element-root-report'));
+
+
+        function traverseNodeAST(ast, node) {
+            const _node = nodes[ast.type];
+
+            const nodeInst = new _node();
+
+            if (ast.children.length > 0) {
+                ast.children.forEach(child => {
+                    const childNodeInst = traverseNodeAST(child, nodeInst);
+                    nodeInst.append(childNodeInst);
+                });
+            }
+
+            return nodeInst;
+        }
+
+        function traverseDOMAST(ast) {
+            const dom = ast.createDOM();
+            ast.children.forEach(child => {
+                dom.appendChild(traverseDOMAST(child));
+            });
+            return dom;
+        }
+
+        function templateDOMAST(ast) {
+            return ast.templateDOM();
+        }
+
+        function jqueryTemplateDOMAST(ast) {
+            return ast.templateDOM();
+        }
+
+        function resolveTemplateDOMAST(ast) {
+            return resolve[ast.type](ast);
+        }
+
+        function templateElementDOMAST(ast) {
+            const dom = ast.templateElementDOM();
+            ast.children.forEach(child => {
+                dom.appendChild(traverseDOMAST(child));
+            });
+            return dom;
+        }
+
+        function printReport(name, report, target) {
+            console.log('--------------------------------');
+            // console.log(name);
+            // console.log(report);
+            // console.log(`Average time: ${report.reduce((acc, curr) => acc + curr, 0) / report.length} milliseconds`);
+
+            target.innerHTML = `
+                <h3>${name}</h3>
+                <p>Average time: ${report.reduce((acc, curr) => acc + curr, 0) / report.length} milliseconds</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>
