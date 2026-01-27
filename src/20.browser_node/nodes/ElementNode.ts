@@ -1,5 +1,5 @@
-import { Node, NodeKey } from "../../10.browser_infra/nodes/Node";
-import { IInternalEditor, NodeConfig } from "../@types/Editor";
+import { IInternalEditor, NodeConfig, NodeKey } from "@primitive_types";
+import { Node } from "@browser_infra";
 
 export abstract class ElementNode extends Node {
     // declare ['constructor']: KlassConstructor<typeof ElementNode>;

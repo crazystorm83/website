@@ -1,8 +1,8 @@
 import { IInstanceStorage, throwException } from "@browser_foundation";
 import { Node, nodeInstanceStorage } from "@browser_infra";
 import { createEditorSequentialUID, createNodeSequentialUID } from "@foundation/utils";
-import { ICommand } from "@primitive_types";
-import { EditorUpdate, EditorUpdateOptions, IEditor, NodeConfig, NodeConfigSerialize, NodeKey, NodeSerialize } from "./@types";
+import { ICommand, IEditor, NodeConfig, NodeConfigSerialize, NodeKey } from "@primitive_types";
+import { EditorUpdate, EditorUpdateOptions, NodeSerialize } from "./@types";
 import { addRootElementEventListeners } from "./events";
 import { PerformanceMonitor } from "./performance";
 

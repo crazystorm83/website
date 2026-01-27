@@ -1,6 +1,7 @@
-import { $isElementNode } from ".";
-import { throwException } from "../../05.browser_foundation/exception/ThrowException";
-import { Node } from "../../10.browser_infra/nodes/Node";
+
+import { throwException } from "@browser_foundation";
+import { Node } from "@browser_infra";
+import { $isElementNode } from "./ElementNode";
 
 export function $getNodeByKey<T extends Node>(nodeMap: Map<string, T>, key: string): T | null {
     return nodeMap.get(key) ?? null;

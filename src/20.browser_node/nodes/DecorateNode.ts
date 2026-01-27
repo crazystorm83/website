@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { throwException } from '../../05.browser_foundation/exception/ThrowException';
-import { Node } from "../../10.browser_infra/nodes/Node";
+import { throwException } from '@browser_foundation';
+import { Node } from "@browser_infra";
 
 export class DecorateNode extends Node {
     getType(): string {
