@@ -1,0 +1,30 @@
+{
+  "name": "@tsx/src",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r --filter './01.primitive_types' --filter './02.fundation' --filter './05.browser_foundation' --filter './10.browser_infra' --filter './90.browser' --filter './server' build",
+    "build:primitive_types": "pnpm --filter './01.primitive_types' build",
+    "build:fundation": "pnpm --filter './02.fundation' build",
+    "build:browser_foundation": "pnpm --filter './05.browser_foundation' build",
+    "build:browser_infra": "pnpm --filter './10.browser_infra' build",
+    "build:browser": "pnpm --filter './90.browser' build",
+    "build:server": "pnpm --filter './server' build",
+    "build:bundle": "pnpm -r --filter './01.primitive_types' --filter './02.fundation' --filter './05.browser_foundation' --filter './10.browser_infra' --filter './90.browser' --filter './server' build:bundle",
+    "build:bundle:primitive_types": "pnpm --filter './01.primitive_types' build:bundle",
+    "build:bundle:fundation": "pnpm --filter './02.fundation' build:bundle",
+    "build:bundle:browser_foundation": "pnpm --filter './05.browser_foundation' build:bundle",
+    "build:bundle:browser_infra": "pnpm --filter './10.browser_infra' build:bundle",
+    "build:bundle:browser": "pnpm --filter './90.browser' build:bundle",
+    "build:bundle:server": "pnpm --filter './server' build:bundle",
+    "clean": "pnpm -r --filter './@types' --filter './05.browser_foundation' --filter './10.browser_infra' --filter './90.browser' --filter './server' clean",
+    "clean:types": "pnpm --filter './@types' clean",
+    "clean:foundation": "pnpm --filter './05.browser_foundation' clean",
+    "clean:infra": "pnpm --filter './10.browser_infra' clean",
+    "clean:browser": "pnpm --filter './90.browser' clean",
+    "clean:server": "pnpm --filter './server' clean"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

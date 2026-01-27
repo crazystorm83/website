@@ -1,0 +1,20 @@
+{
+  "name": "@tsx/browser",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "build:bundle": "esbuild index.ts --bundle --outfile=../../public/bundle/browser.js --format=iife --target=esnext --sourcemap"
+  },
+  "dependencies": {
+    "@tsx/types": "workspace:*",
+    "@tsx/browser-foundation": "workspace:*",
+    "@tsx/browser-infra": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@tsx/server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "action.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "build:bundle": "esbuild action.ts --bundle --outfile=../../dist/server/bundle.js --format=umd --target=esnext --platform=node --sourcemap --external:express",
+    "dev": "tsx watch action.ts",
+    "start": "tsx action.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "tsx": "^4.20.6"
+  }
+}

@@ -1,6 +1,8 @@
-import { NodeIdentifiers } from "@types";
-import { throwException } from "../01.browser_foundation/@types/exception/ThrowException";
+import { NodeIdentifiers, NodeSerialize } from "@primitive_types";
+import { throwException } from "../05.browser_foundation/exception/ThrowException";
 import { createEditor } from "./Editor";
+// Node 클래스들을 import하여 @NHNode 데코레이터가 실행되도록 함
+import "@browser_node";
 
 
 
@@ -41,23 +43,23 @@ type layout_type = 'header' | 'body' | 'footer';
 const view_mapper = {
     menu_1: [
         {
-            type: 'table',
+            type: NodeIdentifiers.TableElementNodeIdentifier.type,
             sect_sid: 'table1',
             model_id: 'table1',
             attributes: [],
             children: [
                 {
-                    type: 'tableThead',
+                    type: NodeIdentifiers.TheadElementNodeIdentifier.type,
                     sect_sid: 'table1_thead',
                     attributes: []
                 },
                 {
-                    type: 'tableTbody',
+                    type: NodeIdentifiers.TbodyElementNodeIdentifier.type,
                     sect_sid: 'table1_tbody',
                     attributes: []
                 },
                 {
-                    type: 'tableTfoot',
+                    type: NodeIdentifiers.TfootElementNodeIdentifier.type,
                     sect_sid: 'table1_tfoot',
                     attributes: []
                 }
@@ -276,39 +278,32 @@ const setup = {
     model_mapper
 }
 
-export type NodeSerialize = {
-    type: string;
-    children: (NodeSerialize & NodeState<any>)[];
-} & NodeState<any>;
 
-export type NodeState<TState> = {
-    state: TState;
-}
 
 const tableNode: NodeSerialize = {
     type: 'table',
     state: {},
     children: [
         {
-            type: 'tableThead',
+            type: NodeIdentifiers.TheadElementNodeIdentifier.type,
             state: {},
             children: [
                 {
-                    'type': 'tableRow',
+                    'type': NodeIdentifiers.TableRowElementNodeIdentifier.type,
                     state: {},
                     'children': [
                         {
-                            'type': 'tableCell',
+                            'type': NodeIdentifiers.TableCellElementNodeIdentifier.type,
                             state: {},
                             'children': []
                         },
                         {
-                            'type': 'tableCell',
+                            'type': NodeIdentifiers.TableCellElementNodeIdentifier.type,
                             state: {},
                             'children': []
                         },
                         {
-                            'type': 'tableCell',
+                            'type': NodeIdentifiers.TableCellElementNodeIdentifier.type,
                             state: {},
                             'children': []
                         }
@@ -398,19 +393,19 @@ const rootNode: NodeSerialize = {
 }
 
 const tableBodyNode: NodeSerialize = {
-    type: 'tableTbody',
+    type: NodeIdentifiers.TbodyElementNodeIdentifier.type,
     state: {},
     children: []
 };
-for (let rowIdx = 0; rowIdx < 6000; rowIdx++) {
+for (let rowIdx = 0; rowIdx < 1000; rowIdx++) {
     const tableRowNode: NodeSerialize = {
-        type: 'tableRow',
+        type: NodeIdentifiers.TableRowElementNodeIdentifier.type,
         state: {},
         children: []
     };
-    for (let colIdx = 0; colIdx < 20; colIdx++) {
+    for (let colIdx = 0; colIdx < 100; colIdx++) {
         tableRowNode.children.push({
-            type: 'tableCell',
+            type: NodeIdentifiers.TableCellElementNodeIdentifier.type,
             state: {},
             children: []
         });

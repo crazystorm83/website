@@ -1,4 +1,4 @@
-import { ICommand } from "./Command";
+import { ICommand } from "../../01.primitive_types/command/ICommand";
 
 export type NodeKey = string;
 

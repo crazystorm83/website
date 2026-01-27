@@ -1,0 +1,14 @@
+{
+  "name": "@tsx/browser-foundation",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "build:bundle": "esbuild index.ts --bundle --outfile=../../public/bundle/foundation.js --format=iife --target=esnext --sourcemap"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

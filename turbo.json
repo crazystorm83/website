@@ -2,8 +2,28 @@
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
         "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["public/bundle/bundle.js"]
+            "dependsOn": [
+                "^build",
+                "build:types",
+                "build:foundation",
+                "build:infra",
+                "build:browser",
+                "build:server"
+            ],
+            "inputs": [
+                "src/@types/**/*.ts",
+                "src/@types/**/*.tsx",
+                "src/05.browser_foundation/**/*.ts",
+                "src/05.browser_foundation/**/*.tsx",
+                "src/10.browser_infra/**/*.ts",
+                "src/10.browser_infra/**/*.tsx",
+                "src/90.browser/**/*.ts",
+                "src/90.browser/**/*.tsx",
+                "src/server/**/*.ts"
+            ],
+            "outputs": [
+                "public/bundle/bundle.js"
+            ]
         },
         "dev": {
             "cache": false,

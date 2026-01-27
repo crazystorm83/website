@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/02.foundation/utils/createUID.ts"],
+  "sourcesContent": ["const UIdMap = new Map<string, number>();\r\n\r\nexport function createNodeSequentialUID(): string {\r\n    const uidKey = 'node';\r\n    return createSequentialUID(uidKey);\r\n}\r\n\r\nexport function createElementSequentialUID(): string {\r\n    const uidKey = 'element';\r\n    return createSequentialUID(uidKey);\r\n}\r\n\r\nexport function createEditorSequentialUID(): string {\r\n    const uidKey = 'editor';\r\n    return createSequentialUID(uidKey);\r\n}\r\n\r\nfunction createUID(): string {\r\n    let uuid = 1;\r\n    return (function () {\r\n        //return Math.random().toString(36).substring(2, 15);\r\n        return `uid-${uuid++}`;\r\n    })()\r\n}\r\n\r\nfunction createSequentialUID(uidKey: 'node' | 'element' | 'editor'): string {\r\n    const uid = UIdMap.get(uidKey) ?? 1;\r\n    UIdMap.set(uidKey, uid + 1);\r\n    return `${uidKey}-${uid}`;\r\n}\r\n"],
+  "mappings": ";;;AAAA,MAAM,SAAS,oBAAI,IAAoB;AAEhC,WAAS,0BAAkC;AAC9C,UAAM,SAAS;AACf,WAAO,oBAAoB,MAAM;AAAA,EACrC;AAEO,WAAS,6BAAqC;AACjD,UAAM,SAAS;AACf,WAAO,oBAAoB,MAAM;AAAA,EACrC;AAEO,WAAS,4BAAoC;AAChD,UAAM,SAAS;AACf,WAAO,oBAAoB,MAAM;AAAA,EACrC;AAUA,WAAS,oBAAoB,QAA+C;AACxE,UAAM,MAAM,OAAO,IAAI,MAAM,KAAK;AAClC,WAAO,IAAI,QAAQ,MAAM,CAAC;AAC1B,WAAO,GAAG,MAAM,IAAI,GAAG;AAAA,EAC3B;",
+  "names": []
+}

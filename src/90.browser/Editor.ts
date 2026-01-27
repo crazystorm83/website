@@ -1,12 +1,10 @@
-import { IInstanceStorage } from "01.browser_foundation/@types/data/storage/InstanceStorage";
-import { throwException } from "../01.browser_foundation/@types/exception/ThrowException";
+import { IInstanceStorage, throwException } from "@browser_foundation";
+import { Node, nodeInstanceStorage } from "@browser_infra";
+import { createEditorSequentialUID, createNodeSequentialUID } from "@foundation/utils";
+import { ICommand } from "@primitive_types";
 import { EditorUpdate, EditorUpdateOptions, IEditor, NodeConfig, NodeConfigSerialize, NodeKey, NodeSerialize } from "./@types";
-import { ICommand } from "./@types/Command";
-import { nodeInstanceStorage } from "./decorators";
-import { addRootElementEventListeners } from "./event/NodeEvent";
-import { Node } from "./nodes";
+import { addRootElementEventListeners } from "./events";
 import { PerformanceMonitor } from "./performance";
-import { createEditorSequentialUID, createNodeSequentialUID } from "./utils";
 
 function setDOMKey(node: NodeSerialize & NodeConfigSerialize, element: HTMLElement | DocumentFragment, editor: Editor) {
     const elementToMap = editor._elementToMap;

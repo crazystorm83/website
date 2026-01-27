@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "rootDir": ".",
+    "outDir": "../../dist/10.browser_infra",
+    "baseUrl": ".",
+    "paths": {
+      "@primitive_types": ["../01.primitive_types"],
+      "@primitive_types/*": ["../01.primitive_types/*"],
+      "@foundation": ["../02.foundation"],
+      "@foundation/*": ["../02.foundation/*"],
+      "@browser_foundation": ["../05.browser_foundation"],
+      "@browser_foundation/*": ["../05.browser_foundation/*"]
+    },
+    "composite": true,
+    "incremental": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "references": [
+    { "path": "../01.primitive_types" },
+    { "path": "../02.foundation" },
+    { "path": "../05.browser_foundation" },
+  ],
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "../../dist"]
+}

@@ -7,7 +7,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "ESNext",
     "target": "esnext",
     "baseUrl": "./src",
     "paths": {
@@ -55,11 +55,22 @@
     "skipLibCheck": true /* 라이브러리 타입 체크 건너뛰기 */
   },
 
-  "files": ["src/90.browser/index.ts"], // 컴파일할 파일들의 개별 목록을 지정하는 속성
+  "files": [], // 루트에서는 파일을 직접 컴파일하지 않음
 
-  "include": ["src/90.browser/**/*", "src/@types/**/*", "src/01.browser_foundation/@types/data", "src/01.browser_foundation/@types/exception"], // 컴파일할 파일들을 지정하는 속성
+  "include": [], // 루트에서는 직접 포함하지 않음
 
-  "exclude": ["node_modules"] // 컴파일 대상에서 제외할 파일들을 지정하는 속성
+  "exclude": ["node_modules", "dist"], // 컴파일 대상에서 제외할 파일들을 지정하는 속성
+
+  // 프로젝트 참조를 사용하여 각 계층을 독립적으로 빌드
+  "references": [
+    { "path": "./src/01.primitive_types" },
+    { "path": "./src/02.foundation" },
+    { "path": "./src/05.browser_foundation" },
+    { "path": "./src/10.browser_infra" },
+    { "path": "./src/20.browser_node" },
+    { "path": "./src/90.browser" },
+    { "path": "./src/server" }
+  ]
 
   // "extends": "./base.tsconfig.json" // 다른 tsconfig.json 파일을 상속받아서 설정을 재사용할 수 있게 해주는 속성
 

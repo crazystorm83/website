@@ -1,0 +1,8 @@
+packages:
+  - 'src/01.primitive_types'
+  - 'src/02.foundation'
+  - 'src/05.browser_foundation'
+  - 'src/10.browser_infra'
+  - 'src/20.browser_node'
+  - 'src/90.browser'
+  - 'src/server'

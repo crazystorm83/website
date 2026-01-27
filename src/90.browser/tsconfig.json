@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "rootDir": ".",
+    "outDir": "../../dist/90.browser",
+    "baseUrl": ".",
+    "paths": {
+      "@primitive_types": ["../01.primitive_types"],
+      "@primitive_types/*": ["../01.primitive_types/*"],
+      "@foundation": ["../02.foundation"],
+      "@foundation/*": ["../02.foundation/*"],
+      "@browser_foundation": ["../05.browser_foundation"],
+      "@browser_foundation/*": ["../05.browser_foundation/*"],
+      "@browser_infra": ["../10.browser_infra"],
+      "@browser_infra/*": ["../10.browser_infra/*"],
+      "@browser_node": ["../20.browser_node"],
+      "@browser_node/*": ["../20.browser_node/*"]
+    },
+    "jsx": "react-jsx",
+    "composite": true,
+    "incremental": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "references": [
+    { "path": "../01.primitive_types" },
+    { "path": "../02.foundation" },
+    { "path": "../05.browser_foundation" },
+    { "path": "../10.browser_infra" },
+    { "path": "../20.browser_node" }
+  ],
+  "include": ["**/*.ts", "**/*.tsx", "../01.primitive_types/command/ICommand.ts"],
+  "exclude": ["node_modules", "../../dist"]
+}
