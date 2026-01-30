@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "rootDir": ".."
+  },
+  "include": [
+    "**/*.ts",
+    "../01.primitive_types/**/*.ts",
+    "../02.foundation/**/*.ts",
+    "../05.browser_foundation/**/*.ts"
+  ],
+  "references": []
+}

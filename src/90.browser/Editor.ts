@@ -22,13 +22,18 @@ function setDOMKey(node: NodeSerialize & NodeConfigSerialize, element: HTMLEleme
 
 export function createEditor(config: {
     data: NodeSerialize
+    event: {
+        type: 'document' | 'element';
+    }
+    renderer_nodes?: IInstanceStorage<Node>;
 }) {
     // const nodes = config.nodes;
     // const nodes = nodeInstanceStorage.getAll();
 
     const editor = new (getEditorClass())({
         data: config.data,
-        nodes: nodeInstanceStorage
+        event: config.event,
+        renderer_nodes: config.renderer_nodes ?? nodeInstanceStorage
     });
 
     // editor.initializeNodes();
@@ -53,7 +58,10 @@ export class Editor implements IEditor {
     _key: string;
 
     _data: NodeSerialize;
-    _nodes: IInstanceStorage<Node>;
+    _event: {
+        type: 'document' | 'element';
+    };
+    _renderer_nodes: IInstanceStorage<Node>;
 
     _nodeToMap: Map<string, NodeSerialize & NodeConfigSerialize> = new Map();
     _elementToMap: Map<string, HTMLElement[]> = new Map();
@@ -65,13 +73,16 @@ export class Editor implements IEditor {
     _updates: [EditorUpdate, EditorUpdateOptions | undefined][];
     constructor(config: {
         data: NodeSerialize;
-        nodes: IInstanceStorage<Node>;
+        event: {
+            type: 'document' | 'element';
+        },
+        renderer_nodes: IInstanceStorage<Node>;
     }) {
         this._key = createEditorSequentialUID();
 
         this._data = config.data;
-        // this._nodes = config.nodes;
-        this._nodes = config.nodes;
+        this._event = config.event;
+        this._renderer_nodes = config.renderer_nodes;
 
         this._rootElement = null;
         this._destoryEventListeners = [];
@@ -79,21 +90,6 @@ export class Editor implements IEditor {
         this._isUpdating = false;
         this._updates = [];
     }
-
-    // initializeNodes(): void {
-    //     for (let i = 0, len = this._nodes.length; i < len; i++) {
-    //         const klass = this._nodes[i];
-    //         if (klass === undefined) continue;
-
-    //         const instNode = new klass();
-    //         const nodeType = klass.getType();
-
-    //         registedNodes[nodeType] = {
-    //             node: klass,
-    //             instNode: instNode
-    //         };
-    //     }
-    // }
 
     registCommand!: (typeof EditorEvent)['registCommand'];
 
@@ -107,7 +103,12 @@ export class Editor implements IEditor {
     }
 
     addEventListeners(rootElement: HTMLElement): void {
-        this._destoryEventListeners = addRootElementEventListeners(rootElement, []);
+        let element = rootElement;
+        if (this._event.type === 'document') {
+            element = document.body;
+        }
+
+        this._destoryEventListeners = addRootElementEventListeners(element, []);
     }
 
     setRootElement(rootElement: HTMLElement): void {
@@ -121,6 +122,7 @@ export class Editor implements IEditor {
 
         this._rootElement = rootElement;
 
+        console.log(this._data);
         console.table(PerformanceMonitor.getReport());
     }
 
@@ -130,7 +132,7 @@ export class Editor implements IEditor {
         //     throwException(false, `Node type ${config.type} is not registered`);
         // }
         // const { node: klass, instNode } = registeredNode;
-        const nodeInstance = this._nodes.getOrThrow(config.type);
+        const nodeInstance = this._renderer_nodes.getOrThrow(config.type);
 
         config.__editorKey = this._key;
         config.__id = createNodeSequentialUID();
@@ -156,23 +158,20 @@ export class Editor implements IEditor {
         parentEl: HTMLElement | DocumentFragment;
         parentConfig: NodeSerialize & Partial<NodeConfigSerialize>;
     }, configs: (NodeSerialize & Partial<NodeConfigSerialize>)[]) {
+
         for (let i = 0, len = configs.length; i < len; i++) {
             const config = configs[i];
             if (config === undefined) continue;
 
-            const prevConfig = i === 0 ? null : configs[i - 1];
+            const prevSiblingConfig = i === 0 ? null : configs[i - 1];
+            const nextSiblingConfig = i === len - 1 ? null : configs[i + 1];
 
-            // const registeredNode = registedNodes[config.type];
-            // if (registeredNode === undefined) {
-            //     throwException(false, `Node type ${config.type} is not registered`);
-            // }
-            // const { node: klass, instNode } = registeredNode;
-
-            const nodeInstance = this._nodes.getOrThrow(config.type);
+            const nodeInstance = this._renderer_nodes.getOrThrow(config.type);
 
             config.__id = createNodeSequentialUID();
-            config.__parent = parentConfig.__id ?? null;
-            config.__prev = prevConfig?.__id ?? null;
+            config.__parentId = parentConfig.__id ?? null;
+            config.__prevSiblingId = prevSiblingConfig?.__id ?? null;
+            config.__nextSiblingId = nextSiblingConfig?.__id ?? null;
 
             nodeInstance.setConfig(config);
             const childEl = nodeInstance.createDOM();
@@ -185,6 +184,9 @@ export class Editor implements IEditor {
 
             parentEl.appendChild(childEl);
         }
+
+        parentConfig.__firstChildId = configs[0]?.__id ?? null;
+        parentConfig.__lastChildId = configs[configs.length - 1]?.__id ?? null;
     }
 }
 

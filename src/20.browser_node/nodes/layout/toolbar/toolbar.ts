@@ -1,4 +1,4 @@
-import { NHNode } from "@browser_infra/decorators/NHNode";
+import { NHNode } from "@browser_infra";
 import { NodeIdentifiers } from "@primitive_types";
 import { ElementNode } from "../../ElementNode";
 

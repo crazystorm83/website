@@ -1,8 +1,6 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "rootDir": ".",
     "outDir": "../../dist/02.fundation",
     "baseUrl": ".",
@@ -25,9 +23,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "references": [
-    { "path": "../01.primitive_types" }
-  ],
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "../../dist"]
+  "references": [{ "path": "../01.primitive_types" }],
+  "include": ["**/*.ts"]
 }

@@ -7,14 +7,17 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "build:bundle": "esbuild index.ts --bundle --outfile=../../public/bundle/browser.js --format=iife --target=esnext --sourcemap"
+    "build:bundle": "rollup -c rollup.config.js"
   },
   "dependencies": {
-    "@tsx/types": "workspace:*",
-    "@tsx/browser-foundation": "workspace:*",
-    "@tsx/browser-infra": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "rollup": "^4.28.1",
+    "rollup-plugin-esbuild": "^6.0.0",
+    "tslib": "^2.8.1"
+  }
 }

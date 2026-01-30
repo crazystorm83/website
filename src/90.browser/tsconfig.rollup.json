@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "rootDir": "..",
+    "jsx": "react"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../01.primitive_types/**/*.ts",
+    "../01.primitive_types/**/*.tsx",
+    "../02.foundation/**/*.ts",
+    "../02.foundation/**/*.tsx",
+    "../05.browser_foundation/**/*.ts",
+    "../05.browser_foundation/**/*.tsx",
+    "../10.browser_infra/**/*.ts",
+    "../10.browser_infra/**/*.tsx",
+    "../20.browser_node/**/*.ts",
+    "../20.browser_node/**/*.tsx"
+  ],
+  "references": []
+}

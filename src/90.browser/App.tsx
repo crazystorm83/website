@@ -8,9 +8,9 @@ import "@browser_node";
 
 
 
-interface NodeStaticConfig {
-    $config: () => { type: string };
-}
+// interface NodeStaticConfig {
+//     $config: () => { type: string };
+// }
 
 // function getStaticNodeConfig(node: Klass<Node>) {
 
@@ -479,7 +479,10 @@ class Performance {
 // ]
 const editor = createEditor({
     // nodes: nodes,
-    data: rootNode
+    data: rootNode,
+    event: {
+        type: 'document'
+    }
 });
 
 editor.setRootElement(rootEl);

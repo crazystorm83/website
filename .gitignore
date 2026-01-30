@@ -1,10 +1,16 @@
 # IDE
 .turbo/
 
+# 빌드
+dist/
+
 docs/
 
 # dependencies
 node_modules/
 
+# 산출물
+public/bundle/**/*.js
+public/bundle/**/*.map
 
 pnpm-lock.yaml

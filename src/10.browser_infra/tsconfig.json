@@ -1,8 +1,6 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "rootDir": ".",
     "outDir": "../../dist/10.browser_infra",
     "baseUrl": ".",
@@ -32,8 +30,7 @@
   "references": [
     { "path": "../01.primitive_types" },
     { "path": "../02.foundation" },
-    { "path": "../05.browser_foundation" },
+    { "path": "../05.browser_foundation" }
   ],
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "../../dist"]
+  "include": ["**/*.ts"]
 }

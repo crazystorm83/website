@@ -7,11 +7,14 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "build:bundle": "esbuild index.ts --bundle --outfile=../../public/bundle/browser_infra.js --format=iife --target=esnext --sourcemap"
+    "build:bundle": "rollup -c rollup.config.js"
   },
   "dependencies": {
-    "@tsx/types": "workspace:*",
-    "@tsx/browser-foundation": "workspace:*"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.2",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.28.1",
+    "tslib": "^2.8.1"
+  }
 }

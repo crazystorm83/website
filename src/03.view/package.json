@@ -1,0 +1,19 @@
+{
+  "name": "@tsx/view",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "build:bundle": "pnpm exec rollup -c rollup.config.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.2",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.28.1",
+    "tslib": "^2.8.1"
+  }
+}

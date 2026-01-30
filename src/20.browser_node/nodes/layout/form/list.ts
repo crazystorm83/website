@@ -1,5 +1,5 @@
 import { NodeIdentifiers } from "@primitive_types";
-import { NHNode } from "@browser_infra/decorators/NHNode";
+import { NHNode } from "@browser_infra";
 import { ElementNode } from "../../ElementNode";
 
 @NHNode({

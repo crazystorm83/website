@@ -18,9 +18,11 @@ export type NodeConfigSerialize = {
     __editorKey: string;
 
     __id: string;
-    __parent: string | null;
-    __prev: string | null;
-    __next: string | null;
+    __parentId: string | null;
+    __prevSiblingId: string | null;
+    __nextSiblingId: string | null;
+    __firstChildId: string | null;
+    __lastChildId: string | null;
 }
 
 export type NodeConfig = NodeSerialize & NodeConfigSerialize;

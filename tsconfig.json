@@ -7,13 +7,9 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
+    "target": "ESNext",
     "module": "ESNext",
-    "target": "esnext",
-    "baseUrl": "./src",
-    "paths": {
-      "@types": ["./@types"],
-      "@types/*": ["./@types/*"]
-    },
+    "moduleResolution": "bundler",
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -57,8 +53,7 @@
 
   "files": [], // 루트에서는 파일을 직접 컴파일하지 않음
 
-  "include": [], // 루트에서는 직접 포함하지 않음
-
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"], // 컴파일 대상에서 제외할 파일들을 지정하는 속성
 
   // 프로젝트 참조를 사용하여 각 계층을 독립적으로 빌드

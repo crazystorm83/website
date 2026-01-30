@@ -1,624 +1,587 @@
-"use strict";
-(() => {
-  var __defProp = Object.defineProperty;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __export = (target, all) => {
-    for (var name in all)
-      __defProp(target, name, { get: all[name], enumerable: true });
-  };
-  var __decorateClass = (decorators, target, key, kind) => {
-    var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
-    for (var i = decorators.length - 1, decorator; i >= 0; i--)
-      if (decorator = decorators[i])
-        result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-    if (kind && result) __defProp(target, key, result);
-    return result;
-  };
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.browser_node = {}, global.React));
+})(this, (function (exports, React) { 'use strict';
 
-  // ../02.foundation/utils/createUID.ts
-  var UIdMap = /* @__PURE__ */ new Map();
-  function createNodeSequentialUID() {
-    const uidKey = "node";
-    return createSequentialUID(uidKey);
-  }
-  function createSequentialUID(uidKey) {
-    const uid = UIdMap.get(uidKey) ?? 1;
-    UIdMap.set(uidKey, uid + 1);
-    return `${uidKey}-${uid}`;
-  }
+    /******************************************************************************
+    Copyright (c) Microsoft Corporation.
 
-  // ../05.browser_foundation/exception/ThrowException.ts
-  function throwException(condition, message) {
-    if (condition) {
-      return;
-    }
-    throw new Error(message);
-  }
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-  // ../10.browser_infra/nodes/Node.ts
-  var Node = class {
-    __key;
-    __parent;
-    __prev;
-    __next;
-    __size = 0;
-    //['constructor']!: KlassConstructor<typeof Node>;
-    constructor(key) {
-      this.__parent = null;
-      this.__prev = null;
-      this.__next = null;
-      this.__key = key ?? createNodeSequentialUID();
-    }
-    _config;
-    setConfig(config) {
-      this._config = config;
-    }
-    createDOM() {
-      throwException(false, "createDOM must be implemented");
-    }
-    updateDOM() {
-      throwException(false, "updateDOM must be implemented");
-    }
-    $config() {
-    }
-  };
-  function createCommand(type) {
-    return { type };
-  }
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+    /* global Reflect, Promise, SuppressedError, Symbol, Iterator */
 
-  // ../01.primitive_types/common/Identifier.ts
-  function createIdentifier(name) {
-    return {
-      type: name
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+        var e = new Error(message);
+        return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
     };
-  }
 
-  // ../01.primitive_types/events/01.identifiers/ButtonElementNodeEventHandlerIdentifier.ts
-  var ButtonElementNodeEventHandlerIdentifier = createIdentifier("button_eventhandler");
-
-  // ../01.primitive_types/events/01.identifiers/InputElementNodeEventHandlerIdentifier.ts
-  var InputElementNodeEventHandlerIdentifier = createIdentifier("input_eventhandler");
-
-  // ../01.primitive_types/events/01.identifiers/LabelElementNodeEventHandlerIdentifier.ts
-  var LabelElementNodeEventHandlerIdentifier = createIdentifier("label_eventhandler");
-
-  // ../01.primitive_types/nodes/01.identifiers/index.ts
-  var __exports3 = {};
-  __export(__exports3, {
-    ButtonElementNodeIdentifier: () => ButtonElementNodeIdentifier,
-    ButtonGroupElementNodeIdentifier: () => ButtonGroupElementNodeIdentifier,
-    FormListDataElementNodeIdentifier: () => FormListDataElementNodeIdentifier,
-    FormListElementNodeIdentifier: () => FormListElementNodeIdentifier,
-    FormListLabelElementNodeIdentifier: () => FormListLabelElementNodeIdentifier,
-    InputElementNodeIdentifier: () => InputElementNodeIdentifier,
-    LabelElementNodeIdentifier: () => LabelElementNodeIdentifier,
-    PageElementNodeIdentifier: () => PageElementNodeIdentifier,
-    PanelElementNodeIdentifier: () => PanelElementNodeIdentifier,
-    RootElementNodeIdentifier: () => RootElementNodeIdentifier,
-    TableCellElementNodeIdentifier: () => TableCellElementNodeIdentifier,
-    TableElementNodeIdentifier: () => TableElementNodeIdentifier,
-    TableRowElementNodeIdentifier: () => TableRowElementNodeIdentifier,
-    TbodyElementNodeIdentifier: () => TbodyElementNodeIdentifier,
-    TfootElementNodeIdentifier: () => TfootElementNodeIdentifier,
-    TheadElementNodeIdentifier: () => TheadElementNodeIdentifier,
-    ToolbarElementNodeIdentifier: () => ToolbarElementNodeIdentifier
-  });
-
-  // ../01.primitive_types/nodes/01.identifiers/ButtonElementNodeIdentifier.ts
-  var ButtonElementNodeIdentifier = createIdentifier("button");
-
-  // ../01.primitive_types/nodes/01.identifiers/ButtonGroupElementNodeIdentifier.ts
-  var ButtonGroupElementNodeIdentifier = createIdentifier("button_group");
-
-  // ../01.primitive_types/nodes/01.identifiers/InputElementNodeIdentifier.ts
-  var InputElementNodeIdentifier = createIdentifier("input");
-
-  // ../01.primitive_types/nodes/01.identifiers/LabelElementNodeIdentifier.ts
-  var LabelElementNodeIdentifier = createIdentifier("label");
-
-  // ../01.primitive_types/nodes/01.identifiers/element/RootElementNodeIdentifier.ts
-  var RootElementNodeIdentifier = createIdentifier("root");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/form/FormListDataElementNodeIdentifier.ts
-  var FormListDataElementNodeIdentifier = createIdentifier("li");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/form/FormListElementNodeIdentifier.ts
-  var FormListElementNodeIdentifier = createIdentifier("ul");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/form/FormListLabelElementNodeIdentifier.ts
-  var FormListLabelElementNodeIdentifier = createIdentifier("li");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/panel/PanelElementNodeIndeitifer.ts
-  var PanelElementNodeIdentifier = createIdentifier("panel");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TableCellElementNodeIdentifier.ts
-  var TableCellElementNodeIdentifier = createIdentifier("td");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TableElementNodeIdentifier.ts
-  var TableElementNodeIdentifier = createIdentifier("table");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TableRowElementNodeIdentifier.ts
-  var TableRowElementNodeIdentifier = createIdentifier("tr");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TbodyElementNodeIdentifier.ts
-  var TbodyElementNodeIdentifier = createIdentifier("tbody");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TfootElementNodeIdentifier.ts
-  var TfootElementNodeIdentifier = createIdentifier("tfoot");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/table/TheadElementNodeIdentifier.ts
-  var TheadElementNodeIdentifier = createIdentifier("thead");
-
-  // ../01.primitive_types/nodes/01.identifiers/layout/toolbar/ToolbarElementNodeIdentifier.ts
-  var ToolbarElementNodeIdentifier = createIdentifier("toolbar");
-
-  // ../01.primitive_types/nodes/01.identifiers/page/PageElementNodeIdentifier.ts
-  var PageElementNodeIdentifier = createIdentifier("page");
-
-  // ../05.browser_foundation/data/Register.ts
-  var Register = class {
-    __items = /* @__PURE__ */ new Map();
-    add(key, target) {
-      this.__items.set(key, target);
+    function throwException(condition, message) {
+        throw new Error(message);
     }
-    get(type) {
-      return this.__items.get(type);
-    }
-    getOrThrow(type) {
-      const item = this.get(type);
-      if (!item) {
-        throwException(false, `Item with type ${type} not found`);
-      }
-      return item;
-    }
-    getAll() {
-      return Array.from(this.__items.values());
-    }
-  };
 
-  // ../05.browser_foundation/data/storage/Storage.ts
-  var Storage = class extends Register {
-    _instances = /* @__PURE__ */ new Map();
-    add(key, target) {
-      super.add(key, target);
+    class Register {
+        __items = new Map();
+        add(key, target) {
+            this.__items.set(key, target);
+        }
+        get(key) {
+            return this.__items.get(key);
+        }
+        getOrThrow(key) {
+            const item = this.get(key);
+            if (!item) {
+                throwException(false, `Item with key ${key} not found`);
+            }
+            return item;
+        }
+        getAll() {
+            return Array.from(this.__items.values());
+        }
     }
-    get(key) {
-      const item = super.get(key);
-      if (!item) return void 0;
-      if (this._instances.has(key)) {
-        return this._instances.get(key);
-      }
-      const instance = new item();
-      this._instances.set(key, instance);
-      return instance;
+
+    class Storage extends Register {
+        _instances = new Map();
+        add(key, target) {
+            super.add(key, target);
+        }
+        get(key) {
+            const item = super.get(key);
+            if (!item)
+                return undefined;
+            if (this._instances.has(key)) {
+                return this._instances.get(key);
+            }
+            const instance = new item();
+            this._instances.set(key, instance);
+            return instance;
+        }
+        getOrThrow(key) {
+            const item = this.get(key);
+            if (!item) {
+                throwException(false, `Item with key ${key} not found`);
+            }
+            return item;
+        }
     }
-    getOrThrow(key) {
-      const item = this.get(key);
-      if (!item) {
-        throwException(false, `Item with key ${key} not found`);
-      }
-      if (this._instances.has(key)) {
-        return this._instances.get(key);
-      }
-      const instance = new item();
-      this._instances.set(key, instance);
-      return instance;
+
+    class InstanceStorage extends Storage {
     }
-  };
 
-  // ../05.browser_foundation/data/storage/InstanceStorage.ts
-  var InstanceStorage = class extends Storage {
-  };
+    class NodeInstanceStorage extends InstanceStorage {
+    }
 
-  // ../10.browser_infra/datas/NodeInstanceStorage.ts
-  var NodeInstanceStorage = class extends InstanceStorage {
-  };
+    const nodeInstanceStorage = new NodeInstanceStorage();
+    function NHNode({ identifier, }) {
+        return (constructor) => {
+            nodeInstanceStorage.add(identifier.type, constructor);
+        };
+    }
 
-  // ../10.browser_infra/decorators/NHNode.ts
-  var nodeInstanceStorage = new NodeInstanceStorage();
-  function NHNode({
-    identifier
-  }) {
-    return (constructor) => {
-      nodeInstanceStorage.add(identifier.type, constructor);
+    const UIdMap = new Map();
+    function createNodeSequentialUID() {
+        const uidKey = 'node';
+        return createSequentialUID(uidKey);
+    }
+    function createSequentialUID(uidKey) {
+        const uid = UIdMap.get(uidKey) ?? 1;
+        UIdMap.set(uidKey, uid + 1);
+        return `${uidKey}-${uid}`;
+    }
+
+    class Node {
+        __key;
+        __parent;
+        __prev;
+        __next;
+        __size = 0;
+        //['constructor']!: KlassConstructor<typeof Node>;
+        constructor(key) {
+            this.__parent = null;
+            this.__prev = null;
+            this.__next = null;
+            this.__key = key ?? createNodeSequentialUID();
+        }
+        _config;
+        setConfig(config) {
+            this._config = config;
+        }
+        createDOM() {
+            throwException(false, 'createDOM must be implemented');
+        }
+        updateDOM() {
+            throwException(false, 'updateDOM must be implemented');
+        }
+        $config() {
+        }
+    }
+
+    function createIdentifier(name) {
+        return {
+            type: name,
+        };
+    }
+
+    const ButtonElementNodeIdentifier = createIdentifier('button');
+
+    const InputElementNodeIdentifier = createIdentifier('input');
+
+    const LabelElementNodeIdentifier = createIdentifier('label');
+
+    const RootElementNodeIdentifier = createIdentifier('root');
+
+    const FormListDataElementNodeIdentifier = createIdentifier('li');
+
+    const FormListElementNodeIdentifier = createIdentifier('ul');
+
+    const FormListLabelElementNodeIdentifier = createIdentifier('li');
+
+    const TableCellElementNodeIdentifier = createIdentifier('td');
+
+    const TableElementNodeIdentifier = createIdentifier('table');
+
+    const TableRowElementNodeIdentifier = createIdentifier('tr');
+
+    const TbodyElementNodeIdentifier = createIdentifier('tbody');
+
+    const TfootElementNodeIdentifier = createIdentifier('tfoot');
+
+    const TheadElementNodeIdentifier = createIdentifier('thead');
+
+    const ToolbarElementNodeIdentifier = createIdentifier('toolbar');
+
+    const PageElementNodeIdentifier = createIdentifier('page');
+
+    class ElementNode extends Node {
+        // declare ['constructor']: KlassConstructor<typeof ElementNode>;
+        _editor;
+        constructor(editor, key) {
+            super(key);
+            this._editor = editor;
+        }
+        getChildren() {
+            return [];
+        }
+        append(...nodes) {
+            this.splice(this.__size, 0, nodes);
+        }
+        splice(start, deleteCount, nodes) {
+            this.getChildren();
+        }
+        remove() {
+        }
+        insertBefore(node, before) {
+        }
+        insertAfter(node, after) {
+        }
+    }
+    function $isElementNode(node) {
+        return node instanceof ElementNode;
+    }
+    function $isNode(value) {
+        return value instanceof Node;
+    }
+
+    exports.ButtonElementNode = class ButtonElementNode extends ElementNode {
+        buildCss() {
+            const classNames = ['button'];
+            return classNames.join(' ');
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return ButtonElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const buttonEl = document.createElement('button');
+            buttonEl.textContent = this._config?.state.display_name;
+            return buttonEl;
+        }
+        updateDOM() {
+            return true;
+        }
     };
-  }
+    exports.ButtonElementNode = __decorate([
+        NHNode({
+            identifier: ButtonElementNodeIdentifier,
+        })
+    ], exports.ButtonElementNode);
 
-  // nodes/ElementNode.ts
-  var ElementNode = class extends Node {
-    // declare ['constructor']: KlassConstructor<typeof ElementNode>;
-    _editor;
-    constructor(editor, key) {
-      super(key);
-      this._editor = editor;
-    }
-    getChildren() {
-      return [];
-    }
-    append(...nodes) {
-      this.splice(this.__size, 0, nodes);
-    }
-    splice(start, deleteCount, nodes) {
-      this.getChildren();
-    }
-    remove() {
-    }
-    insertBefore(node, before) {
-    }
-    insertAfter(node, after) {
-    }
-  };
-  function $isElementNode(node) {
-    return node instanceof ElementNode;
-  }
-  function $isNode(value) {
-    return value instanceof Node;
-  }
+    exports.InputElementNode = class InputElementNode extends ElementNode {
+        buildCss() {
+            const classNames = ['input'];
+            return classNames.join(' ');
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return InputElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const inputEl = document.createElement('input');
+            inputEl.type = 'text';
+            return inputEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.InputElementNode = __decorate([
+        NHNode({
+            identifier: InputElementNodeIdentifier,
+        })
+    ], exports.InputElementNode);
 
-  // nodes/component/ButtonElementNode.ts
-  var ButtonElementNode = class extends ElementNode {
-    buildCss() {
-      const classNames = ["button"];
-      return classNames.join(" ");
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.ButtonElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const buttonEl = document.createElement("button");
-      buttonEl.textContent = this._config?.state.display_name;
-      return buttonEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  ButtonElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.ButtonElementNodeIdentifier
-    })
-  ], ButtonElementNode);
+    exports.LabelElementNode = class LabelElementNode extends ElementNode {
+        buildCss() {
+            const classNames = ['label'];
+            return classNames.join(' ');
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return LabelElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const labelEl = document.createElement('span');
+            labelEl.textContent = this._config?.state.display_name;
+            return labelEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.LabelElementNode = __decorate([
+        NHNode({
+            identifier: LabelElementNodeIdentifier,
+        })
+    ], exports.LabelElementNode);
 
-  // nodes/component/InputElementNode.ts
-  var InputElementNode = class extends ElementNode {
-    buildCss() {
-      const classNames = ["input"];
-      return classNames.join(" ");
+    class DecorateNode extends Node {
+        getType() {
+            return 'decorate';
+        }
+        createDOM() {
+            return document.createElement('div');
+        }
+        updateDOM() {
+            return true;
+        }
+        decorate() {
+            throwException(false, 'decorate must be implemented');
+        }
     }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.InputElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const inputEl = document.createElement("input");
-      inputEl.type = "text";
-      return inputEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  InputElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.InputElementNodeIdentifier
-    })
-  ], InputElementNode);
 
-  // nodes/component/LabelElementNode.ts
-  var LabelElementNode = class extends ElementNode {
-    buildCss() {
-      const classNames = ["label"];
-      return classNames.join(" ");
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.LabelElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const labelEl = document.createElement("span");
-      labelEl.textContent = this._config?.state.display_name;
-      return labelEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  LabelElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.LabelElementNodeIdentifier
-    })
-  ], LabelElementNode);
+    exports.FormListElementNode = class FormListElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return FormListElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const formListEl = document.createElement('ul');
+            formListEl.className = 'form-list';
+            return formListEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.FormListElementNode = __decorate([
+        NHNode({
+            identifier: FormListElementNodeIdentifier,
+        })
+    ], exports.FormListElementNode);
 
-  // nodes/DecorateNode.ts
-  var DecorateNode = class extends Node {
-    getType() {
-      return "decorate";
-    }
-    createDOM() {
-      return document.createElement("div");
-    }
-    updateDOM() {
-      return true;
-    }
-    decorate() {
-      throwException(false, "decorate must be implemented");
-    }
-  };
+    exports.FormListDataElementNode = class FormListDataElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return FormListDataElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const formListDataEl = document.createElement('li');
+            formListDataEl.className = 'form-list-data';
+            return formListDataEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.FormListDataElementNode = __decorate([
+        NHNode({
+            identifier: FormListDataElementNodeIdentifier,
+        })
+    ], exports.FormListDataElementNode);
 
-  // nodes/layout/form/list.ts
-  var FormListElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.FormListElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const formListEl = document.createElement("ul");
-      formListEl.className = "form-list";
-      return formListEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  FormListElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.FormListElementNodeIdentifier
-    })
-  ], FormListElementNode);
+    exports.FormListLabelElementNode = class FormListLabelElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        static getType() {
+            return FormListLabelElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const formListLabelEl = document.createElement('li');
+            formListLabelEl.className = 'form-list-label';
+            return formListLabelEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.FormListLabelElementNode = __decorate([
+        NHNode({
+            identifier: FormListLabelElementNodeIdentifier,
+        })
+    ], exports.FormListLabelElementNode);
 
-  // nodes/layout/form/listData.ts
-  var FormListDataElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.FormListDataElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const formListDataEl = document.createElement("li");
-      formListDataEl.className = "form-list-data";
-      return formListDataEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  FormListDataElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.FormListDataElementNodeIdentifier
-    })
-  ], FormListDataElementNode);
+    exports.TableCellElementNode = class TableCellElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TableCellElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('td');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TableCellElementNode = __decorate([
+        NHNode({
+            identifier: TableCellElementNodeIdentifier,
+        })
+    ], exports.TableCellElementNode);
 
-  // nodes/layout/form/listLabel.ts
-  var FormListLabelElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    static getType() {
-      return __exports3.FormListLabelElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const formListLabelEl = document.createElement("li");
-      formListLabelEl.className = "form-list-label";
-      return formListLabelEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  FormListLabelElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.FormListLabelElementNodeIdentifier
-    })
-  ], FormListLabelElementNode);
+    exports.TableElementNode = class TableElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TableElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('table');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TableElementNode = __decorate([
+        NHNode({
+            identifier: TableElementNodeIdentifier,
+        })
+    ], exports.TableElementNode);
 
-  // nodes/layout/table/TableCellElementNode.ts
-  var TableCellElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TableCellElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("td");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TableCellElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TableCellElementNodeIdentifier
-    })
-  ], TableCellElementNode);
+    exports.TableRowElementNode = class TableRowElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TableRowElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('tr');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TableRowElementNode = __decorate([
+        NHNode({
+            identifier: TableRowElementNodeIdentifier,
+        })
+    ], exports.TableRowElementNode);
 
-  // nodes/layout/table/TableElementNode.ts
-  var TableElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TableElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("table");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TableElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TableElementNodeIdentifier
-    })
-  ], TableElementNode);
+    exports.TbodyElementNode = class TbodyElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TbodyElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('tbody');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TbodyElementNode = __decorate([
+        NHNode({
+            identifier: TbodyElementNodeIdentifier,
+        })
+    ], exports.TbodyElementNode);
 
-  // nodes/layout/table/TableRowElementNode.ts
-  var TableRowElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TableRowElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("tr");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TableRowElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TableRowElementNodeIdentifier
-    })
-  ], TableRowElementNode);
+    exports.TfootElementNode = class TfootElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TfootElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('tfoot');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TfootElementNode = __decorate([
+        NHNode({
+            identifier: TfootElementNodeIdentifier,
+        })
+    ], exports.TfootElementNode);
 
-  // nodes/layout/table/TbodyElementNode.ts
-  var TbodyElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TbodyElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("tbody");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TbodyElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TbodyElementNodeIdentifier
-    })
-  ], TbodyElementNode);
+    exports.TheadElementNode = class TheadElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return TheadElementNodeIdentifier.type;
+        }
+        createDOM() {
+            return document.createElement('thead');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.TheadElementNode = __decorate([
+        NHNode({
+            identifier: TheadElementNodeIdentifier,
+        })
+    ], exports.TheadElementNode);
 
-  // nodes/layout/table/TfootElementNode.ts
-  var TfootElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TfootElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("tfoot");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TfootElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TfootElementNodeIdentifier
-    })
-  ], TfootElementNode);
+    exports.ToolbarElementNode = class ToolbarElementNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        getType() {
+            return ToolbarElementNodeIdentifier.type;
+        }
+        createDOM() {
+            const toolbarEl = document.createElement('div');
+            toolbarEl.className = 'toolbar';
+            return toolbarEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.ToolbarElementNode = __decorate([
+        NHNode({
+            identifier: ToolbarElementNodeIdentifier,
+        })
+    ], exports.ToolbarElementNode);
 
-  // nodes/layout/table/TheadElementNode.ts
-  var TheadElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.TheadElementNodeIdentifier.type;
-    }
-    createDOM() {
-      return document.createElement("thead");
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  TheadElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.TheadElementNodeIdentifier
-    })
-  ], TheadElementNode);
+    exports.PageElementNode = class PageElementNode extends ElementNode {
+        buildCss() {
+            const classNames = ['page'];
+            return classNames.join(' ');
+        }
+        buildStyle() {
+            return '';
+        }
+        createDOM() {
+            const pageEl = document.createElement('div');
+            return pageEl;
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.PageElementNode = __decorate([
+        NHNode({
+            identifier: PageElementNodeIdentifier,
+        })
+    ], exports.PageElementNode);
 
-  // nodes/layout/toolbar/toolbar.ts
-  var ToolbarElementNode = class extends ElementNode {
-    buildCss() {
-      return "";
+    function InputReactDecoratorComponent(props) {
+        return (React.createElement("input", { type: "text" }));
     }
-    buildStyle() {
-      return "";
-    }
-    getType() {
-      return __exports3.ToolbarElementNodeIdentifier.type;
-    }
-    createDOM() {
-      const toolbarEl = document.createElement("div");
-      toolbarEl.className = "toolbar";
-      return toolbarEl;
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  ToolbarElementNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.ToolbarElementNodeIdentifier
-    })
-  ], ToolbarElementNode);
 
-  // nodes/RootNode.ts
-  var RootNode = class extends ElementNode {
-    buildCss() {
-      return "";
-    }
-    buildStyle() {
-      return "";
-    }
-    createDOM() {
-      return document.createDocumentFragment();
-    }
-    updateDOM() {
-      return true;
-    }
-  };
-  RootNode = __decorateClass([
-    NHNode({
-      identifier: __exports3.RootElementNodeIdentifier
-    })
-  ], RootNode);
-})();
+    exports.RootNode = class RootNode extends ElementNode {
+        buildCss() {
+            return '';
+        }
+        buildStyle() {
+            return '';
+        }
+        createDOM() {
+            return document.createDocumentFragment();
+            // return document.createElement('div');
+        }
+        updateDOM() {
+            return true;
+        }
+    };
+    exports.RootNode = __decorate([
+        NHNode({
+            identifier: RootElementNodeIdentifier,
+        })
+    ], exports.RootNode);
+
+    exports.$isElementNode = $isElementNode;
+    exports.$isNode = $isNode;
+    exports.DecorateNode = DecorateNode;
+    exports.ElementNode = ElementNode;
+    exports.InputReactDecoratorComponent = InputReactDecoratorComponent;
+
+}));
 //# sourceMappingURL=browser_node.js.map

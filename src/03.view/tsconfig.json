@@ -1,0 +1,34 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../../dist/02.fundation",
+    "baseUrl": ".",
+    "paths": {
+      "@primitive_types": ["../01.primitive_types"],
+      "@primitive_types/*": ["../01.primitive_types/*"],
+      "@foundation": ["../02.foundation"],
+      "@foundation/*": ["../02.foundation/*"]
+    },
+    "composite": true,
+    "incremental": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "references": [
+    { "path": "../01.primitive_types" },
+    { "path": "../02.foundation" }
+  ],
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

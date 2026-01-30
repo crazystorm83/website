@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -18,7 +19,6 @@
       "@browser_node": ["../20.browser_node"],
       "@browser_node/*": ["../20.browser_node/*"]
     },
-    "jsx": "react-jsx",
     "composite": true,
     "incremental": true,
     "sourceMap": true,
@@ -32,7 +32,8 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "jsx": "react"
   },
   "references": [
     { "path": "../01.primitive_types" },
@@ -41,6 +42,6 @@
     { "path": "../10.browser_infra" },
     { "path": "../20.browser_node" }
   ],
-  "include": ["**/*.ts", "**/*.tsx", "../01.primitive_types/command/ICommand.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "../../dist"]
 }
